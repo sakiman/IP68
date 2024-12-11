@@ -76,5 +76,10 @@
 - 網路連接（支援離線模式）
 - 相機權限
 
-## 技術支援
-如有問題請聯繫 IT 部門
+## Resource
+- [Markdown](https://markdown.tw/)
+- [Mermaid](https://mermaid.js.org/)
+- [Shields.io](https://shields.io/)
+- [Simple-icons badge slug](https://github.com/simple-icons/simple-icons/blob/master/slugs.md)
+- [JSON Edior Online](https://jsoneditoronline.org/images/logo.png)
+

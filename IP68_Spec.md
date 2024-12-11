@@ -153,11 +153,15 @@ graph TD
     A[API Gateway<br/>Python FastAPI] --> B[認證服務<br/>Python FastAPI]
     A --> C[檢核表單服務<br/>Python FastAPI]
     A --> D[照片服務<br/>Python FastAPI]
-    A --> E[報表服務<br/>Python FastAPI]
     B --> F[(使用者資料庫<br/>PostgreSQL)]
     C --> G[(檢核資料庫<br/>PostgreSQL)]
     D --> H[檔案存儲<br/>MinIO]
-    E --> G
+    
+    subgraph Azure Cloud
+    Z[數據同步服務] --> Y[(中央資料庫)]
+    end
+    
+    A --> Z
 ```
 
 ### 9.2 資料庫架構 (Python/PostgreSQL)
@@ -199,10 +203,10 @@ services = {
         'dependencies': ['photo_db', 'minio'],
         'scaling': 'horizontal'
     },
-    'report_service': {
+    'data_sync_service': {
         'framework': 'FastAPI',
-        'endpoints': ['/reports/*'],
-        'dependencies': ['check_db', 'minio'],
+        'endpoints': ['/sync/*'],
+        'dependencies': ['central_db', 'redis'],
         'scaling': 'vertical'
     }
 }
@@ -239,10 +243,10 @@ services:
       dockerfile: Dockerfile-python
     replicas: 2
     
-  report_service:
-    image: ip68_report
+  data_sync_service:
+    image: ip68_data_sync
     build:
-      context: ./services/report
+      context: ./services/data_sync
       dockerfile: Dockerfile-python
     replicas: 1
     
@@ -451,7 +455,7 @@ IP68.Solution/
 │   │   ├── IP68.Identity/         # 身份認證服務
 │   │   ├── IP68.Inspection/       # 檢核表單服務
 │   │   ├── IP68.MediaHandler/     # 媒體處理服務
-│   │   └── IP68.Reporting/        # 報表服務
+│   │   └── IP68.DataSync/         # 數據同步服務
 │   ├── BuildingBlocks/
 │   │   ├── IP68.Common/           # 共用元件
 │   │   ├── IP68.EventBus/         # 事件匯流排
@@ -636,7 +640,6 @@ graph TD
     A[API Gateway<br/>YARP] --> B[Identity Service<br/>.NET Core 8]
     A --> C[Inspection Service<br/>.NET Core 8]
     A --> D[Media Service<br/>.NET Core 8]
-    A --> E[Report Service<br/>.NET Core 8]
     
     B --> F[(Identity DB<br/>SQL Server)]
     B --> G[Redis<br/>Session Store]
@@ -647,18 +650,19 @@ graph TD
     D --> J[(Media DB<br/>SQL Server)]
     D --> K[MinIO<br/>Object Storage]
     
-    E --> L[(Report DB<br/>SQL Server)]
-    E --> M[Redis<br/>Cache]
+    subgraph Azure Cloud
+    Z[Data Sync Service] --> Y[(Central DB)]
+    end
+    
+    A --> Z
     
     N[Event Bus<br/>RabbitMQ] --> B
     N --> C
     N --> D
-    N --> E
     
     O[Monitoring<br/>Application Insights] --> B
     O --> C
     O --> D
-    O --> E
 ```
 
 ### 11.9 領域服務架構 (.NET Core 8)
@@ -925,6 +929,46 @@ class ProjectInteractionManager {
             favorites.insert(project.id)
         }
         saveFavorites()
+    }
+}
+```
+
+### 12.8 報告生成 (iPad App)
+```swift
+class ReportGenerator {
+    func generateReport(inspection: Inspection) -> URL {
+        // 在 iPad 上生成 Word 格式報告
+        let report = WordDocument()
+        
+        // 添加報告標題
+        report.addTitle(inspection.title)
+        
+        // 添加基本信息
+        report.addSection("基本信息")
+        report.addField("專案編號", inspection.projectNumber)
+        report.addField("檢測日期", inspection.date)
+        report.addField("檢測人員", inspection.inspector)
+        
+        // 添加檢測項目
+        report.addSection("檢測項目")
+        for item in inspection.items {
+            report.addCheckItem(item)
+            if let photo = item.photo {
+                report.addPhoto(photo)
+            }
+        }
+        
+        // 添加結論
+        report.addSection("檢測結論")
+        report.addConclusion(inspection.conclusion)
+        
+        // 保存報告
+        let reportURL = FileManager.default
+            .documentsDirectory
+            .appendingPathComponent("\(inspection.id).docx")
+        
+        report.save(to: reportURL)
+        return reportURL
     }
 }
 ```

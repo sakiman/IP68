@@ -628,6 +628,7 @@ public class Startup
         });
     }
 }
+```
 
 ### 11.8 服務層架構 (.NET Core 8)
 ```mermaid

@@ -629,6 +629,90 @@ public class Startup
     }
 }
 
+### 11.8 服務層架構 (.NET Core 8)
+```mermaid
+graph TD
+    A[API Gateway<br/>YARP] --> B[Identity Service<br/>.NET Core 8]
+    A --> C[Inspection Service<br/>.NET Core 8]
+    A --> D[Media Service<br/>.NET Core 8]
+    A --> E[Report Service<br/>.NET Core 8]
+    
+    B --> F[(Identity DB<br/>SQL Server)]
+    B --> G[Redis<br/>Session Store]
+    
+    C --> H[(Inspection DB<br/>SQL Server)]
+    C --> I[Redis<br/>Cache]
+    
+    D --> J[(Media DB<br/>SQL Server)]
+    D --> K[MinIO<br/>Object Storage]
+    
+    E --> L[(Report DB<br/>SQL Server)]
+    E --> M[Redis<br/>Cache]
+    
+    N[Event Bus<br/>RabbitMQ] --> B
+    N --> C
+    N --> D
+    N --> E
+    
+    O[Monitoring<br/>Application Insights] --> B
+    O --> C
+    O --> D
+    O --> E
+```
+
+### 11.9 領域服務架構 (.NET Core 8)
+```mermaid
+graph LR
+    A[API Layer] --> B[Application Layer]
+    B --> C[Domain Layer]
+    B --> D[Infrastructure Layer]
+    
+    subgraph API
+    A1[Controllers] --> A2[Filters]
+    A2 --> A3[Middleware]
+    end
+    
+    subgraph Application
+    B1[Commands] --> B2[Queries]
+    B2 --> B3[DTOs]
+    B3 --> B4[Validators]
+    end
+    
+    subgraph Domain
+    C1[Entities] --> C2[Value Objects]
+    C2 --> C3[Aggregates]
+    C3 --> C4[Domain Events]
+    end
+    
+    subgraph Infrastructure
+    D1[Repositories] --> D2[Unit of Work]
+    D2 --> D3[External Services]
+    D3 --> D4[Persistence]
+    end
+```
+
+### 11.10 服務通訊架構 (.NET Core 8)
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Gateway
+    participant Auth
+    participant Service
+    participant EventBus
+    participant DB
+    
+    Client->>Gateway: Request
+    Gateway->>Auth: Validate Token
+    Auth-->>Gateway: Token Valid
+    Gateway->>Service: Forward Request
+    Service->>DB: Get/Update Data
+    DB-->>Service: Data
+    Service->>EventBus: Publish Event
+    EventBus-->>Service: Event Published
+    Service-->>Gateway: Response
+    Gateway-->>Client: Final Response
+```
+
 ## 12. 專案管理介面
 
 ### 12.1 介面布局

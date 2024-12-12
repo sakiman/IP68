@@ -121,4 +121,4 @@ graph RL
 - [Mermaid](https://mermaid.js.org/)
 - [Shields.io](https://shields.io/)
 - [Simple-icons badge slug](https://github.com/simple-icons/simple-icons/blob/master/slugs.md)
-- [JSON Edior Online](https://jsoneditoronline.org/images/logo.png)
+- [JSON Edior Online](https://jsoneditoronline.org/)

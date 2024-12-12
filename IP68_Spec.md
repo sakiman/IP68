@@ -2,12 +2,50 @@
 
 ## 1. 系統架構
 
-### 前端 (iPad App)
+### 1.1 網路架構
+```mermaid
+graph TD
+    subgraph 內網環境
+        A[內網應用服務器] --> B[內網資料庫]
+        A --> C[內網處理系統]
+    end
+    
+    subgraph 外網環境
+        D[外網API服務器] --> E[外網資料庫]
+        F[iPad App] --> D
+        D --> F
+    end
+    
+    A -- 取得raw data和審查結果 --> D
+    A -- 回傳處理狀態 --> D
+    A -- 發送基礎設置資料 --> D
+```
+
+### 1.2 網路架構說明
+- **內網環境**
+  - 負責最終數據處理和應用
+  - 通過API從外網獲取raw data和審查結果
+  - 向外網發送基礎設置資料
+  - 處理完成後回傳狀態到外網
+
+- **外網環境**
+  - API服務器負責數據中轉
+  - 儲存iPad上傳的raw data和審查結果
+  - 儲存內網發送的基礎設置資料
+  - iPad登入時自動更新基礎設置
+
+- **iPad應用**
+  - 運行在外網環境
+  - 僅與外網API服務器通訊
+  - 登入時自動更新基礎設置
+  - 上傳檢測數據到外網
+
+### 1.3 前端 (iPad App)
 ```swift
 // 使用 SwiftUI 開發
 ```
 
-### 後端 (App Server)
+### 1.4 後端 (App Server)
 ```python
 # 使用 Python FastAPI 或 Django REST framework
 ```
@@ -637,9 +675,9 @@ public class Startup
 ### 11.8 服務層架構 (.NET Core 8)
 ```mermaid
 graph TD
-    A[API Gateway<br/>YARP] --> B[Identity Service<br/>.NET Core 8]
-    A --> C[Inspection Service<br/>.NET Core 8]
-    A --> D[Media Service<br/>.NET Core 8]
+    iPad[iPad App] --> B[Identity Service<br/>.NET Core 8]
+    iPad --> C[Inspection Service<br/>.NET Core 8]
+    iPad --> D[Media Service<br/>.NET Core 8]
     
     B --> F[(Identity DB<br/>SQL Server)]
     B --> G[Redis<br/>Session Store]
@@ -654,7 +692,7 @@ graph TD
     Z[Data Sync Service] --> Y[(Central DB)]
     end
     
-    A --> Z
+    iPad --> Z
     
     N[Event Bus<br/>RabbitMQ] --> B
     N --> C

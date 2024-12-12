@@ -4,41 +4,47 @@
 
 ### 1.1 網路架構
 ```mermaid
-graph TD
+graph RL
     subgraph 內網環境
-        A[內網應用服務器] --> B[內網資料庫]
-        A --> C[內網處理系統]
+        S1[ ]
+        S2[ ]
+        A[內網應用服務器] <--> B[內網資料庫]
+        A <--> C[內網處理系統]
     end
-    
+        
     subgraph 外網環境
         D[外網API服務器] --> E[外網資料庫]
-        F[iPad App] --> D
-        D --> F
     end
     
-    A -- 取得raw data和審查結果 --> D
+    F[iPad App]
+    D <--> F
+    
+    D -- 取得raw data和審查結果 --> A
     A -- 回傳處理狀態 --> D
     A -- 發送基礎設置資料 --> D
+
+    style S1 fill:none,stroke:none
+    style S2 fill:none,stroke:none
 ```
 
 ### 1.2 網路架構說明
-- **內網環境**
-  - 負責最終數據處理和應用
-  - 通過API從外網獲取raw data和審查結果
-  - 向外網發送基礎設置資料
-  - 處理完成後回傳狀態到外網
+- **iPad應用**
+  - 運行於外網環境之外
+  - 僅與外網API服務器通訊
+  - 登入時自動更新基礎設置
+  - 上傳檢測數據到外網
 
 - **外網環境**
   - API服務器負責數據中轉
   - 儲存iPad上傳的raw data和審查結果
   - 儲存內網發送的基礎設置資料
-  - iPad登入時自動更新基礎設置
+  - 提供iPad所需的更新資料
 
-- **iPad應用**
-  - 運行在外網環境
-  - 僅與外網API服務器通訊
-  - 登入時自動更新基礎設置
-  - 上傳檢測數據到外網
+- **內網環境**
+  - 負責最終數據處理和應用
+  - 通過API從外網獲取raw data和審查結果
+  - 向外網發送基礎設置資料
+  - 處理完成後回傳狀態到外網
 
 ### 1.3 前端 (iPad App)
 ```swift
@@ -46,8 +52,8 @@ graph TD
 ```
 
 ### 1.4 後端 (App Server)
-```python
-# 使用 Python FastAPI 或 Django REST framework
+```csharp
+// 使用 .NET Core 8 開發 （備選方案 Python FastAPI）
 ```
 
 ## 2. 功能需求
@@ -154,10 +160,10 @@ DELETE /api/photos/{photo_id}
 - AVFoundation (相機功能)
 
 ### 5.2 後端
-- Python FastAPI/Django
-- PostgreSQL
+- .NET Core 8
+- SQL Server
 - Redis (快取)
-- S3/MinIO (照片存儲)
+- Azure Blob Storage (照片存儲)
 
 ### 5.3 部署
 - Docker
@@ -183,17 +189,17 @@ DELETE /api/photos/{photo_id}
 - 第三方系統整合
 - API 版本控制
 
-## 9. Python FastAPI 微服務架構
+## 9. .NET Core 8 微服務架構
 
-### 9.1 服務層架構 (Python)
+### 9.1 服務層架構 (.NET Core 8)
 ```mermaid
 graph TD
-    A[API Gateway<br/>Python FastAPI] --> B[認證服務<br/>Python FastAPI]
-    A --> C[檢核表單服務<br/>Python FastAPI]
-    A --> D[照片服務<br/>Python FastAPI]
-    B --> F[(使用者資料庫<br/>PostgreSQL)]
-    C --> G[(檢核資料庫<br/>PostgreSQL)]
-    D --> H[檔案存儲<br/>MinIO]
+    A[API Gateway<br/>.NET Core 8] --> B[認證服務<br/>.NET Core 8]
+    A --> C[檢核表單服務<br/>.NET Core 8]
+    A --> D[照片服務<br/>.NET Core 8]
+    B --> F[(使用者資料庫<br/>SQL Server)]
+    C --> G[(檢核資料庫<br/>SQL Server)]
+    D --> H[檔案存儲<br/>Azure Blob Storage]
     
     subgraph Azure Cloud
     Z[數據同步服務] --> Y[(中央資料庫)]
@@ -202,8 +208,8 @@ graph TD
     A --> Z
 ```
 
-### 9.2 資料庫架構 (Python/PostgreSQL)
-- **主資料庫 (PostgreSQL)**
+### 9.2 資料庫架構 (.NET Core 8/SQL Server)
+- **主資料庫 (SQL Server)**
   - 使用者資料表
   - 檢核記錄表
   - 照片metadata表
@@ -214,97 +220,49 @@ graph TD
   - API 響應快取
   - 熱門檢核項目快取
 
-- **檔案存儲 (MinIO)**
+- **檔案存儲 (Azure Blob Storage)**
   - 照片檔案
   - 報表檔案
   - 備份檔案
 
-### 9.3 微服務架構 (Python FastAPI)
-```python
-# 服務元件
-services = {
-    'auth_service': {
-        'framework': 'FastAPI',
-        'endpoints': ['/login', '/logout', '/profile'],
-        'dependencies': ['user_db', 'redis'],
-        'scaling': 'horizontal'
-    },
-    'form_service': {
-        'framework': 'FastAPI',
-        'endpoints': ['/checks/*'],
-        'dependencies': ['check_db', 'redis'],
-        'scaling': 'horizontal'
-    },
-    'photo_service': {
-        'framework': 'FastAPI',
-        'endpoints': ['/photos/*'],
-        'dependencies': ['photo_db', 'minio'],
-        'scaling': 'horizontal'
-    },
-    'data_sync_service': {
-        'framework': 'FastAPI',
-        'endpoints': ['/sync/*'],
-        'dependencies': ['central_db', 'redis'],
-        'scaling': 'vertical'
-    }
+### 9.3 微服務架構 (.NET Core 8)
+```csharp
+// 服務元件
+public class ServiceConfiguration
+{
+    public Dictionary<string, ServiceInfo> Services = new()
+    {
+        ["AuthService"] = new ServiceInfo
+        {
+            Framework = ".NET Core 8",
+            Endpoints = new[] {"/login", "/logout", "/profile"},
+            Dependencies = new[] {"user_db", "redis"},
+            Scaling = "horizontal"
+        },
+        ["FormService"] = new ServiceInfo
+        {
+            Framework = ".NET Core 8",
+            Endpoints = new[] {"/checks/*"},
+            Dependencies = new[] {"check_db", "redis"},
+            Scaling = "horizontal"
+        },
+        ["PhotoService"] = new ServiceInfo
+        {
+            Framework = ".NET Core 8",
+            Endpoints = new[] {"/photos/*"},
+            Dependencies = new[] {"blob_storage", "redis"},
+            Scaling = "horizontal"
+        }
+    };
 }
 ```
 
-### 9.4 部署架構 (Python/Docker)
-```yaml
-# Docker Compose 配置概要
-version: '3.8'
-services:
-  api_gateway:
-    image: nginx
-    ports:
-      - "443:443"
-    
-  auth_service:
-    image: ip68_auth
-    build:
-      context: ./services/auth
-      dockerfile: Dockerfile-python
-    replicas: 3
-    
-  form_service:
-    image: ip68_form
-    build:
-      context: ./services/form
-      dockerfile: Dockerfile-python
-    replicas: 3
-    
-  photo_service:
-    image: ip68_photo
-    build:
-      context: ./services/photo
-      dockerfile: Dockerfile-python
-    replicas: 2
-    
-  data_sync_service:
-    image: ip68_data_sync
-    build:
-      context: ./services/data_sync
-      dockerfile: Dockerfile-python
-    replicas: 1
-    
-  postgres:
-    image: postgres:latest
-    volumes:
-      - pg_data:/var/lib/postgresql/data
-      
-  redis:
-    image: redis:latest
-    volumes:
-      - redis_data:/data
-      
-  minio:
-    image: minio/minio
-    volumes:
-      - minio_data:/data
-```
+### 9.4 備選方案：Python FastAPI 微服務
+- 可作為輕量級服務補充
+- 用於特定數據處理任務
+- 與 .NET Core 8 服務協同工作
 
-### 9.5 監控與日誌 (Python/ELK Stack)
+### 9.5 監控與日誌 (.NET Core 8)
 - **監控指標**
   - API 響應時間 (Prometheus)
   - 服務健康狀態 (FastAPI health checks)
@@ -316,7 +274,7 @@ services:
   - Logstash: 日誌收集
   - Kibana: 日誌視覺化
 
-### 9.6 安全架構 (Python/FastAPI)
+### 9.6 安全架構 (.NET Core 8)
 - **網路安全**
   - WAF (ModSecurity)
   - DDoS 防護 (Cloudflare)

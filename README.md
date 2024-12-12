@@ -12,25 +12,31 @@
 
 ## 系統架構
 ```mermaid
-graph TD
+graph RL
     subgraph 內網環境
-        A[內網應用服務器] --> B[內網資料庫]
-        A --> C[內網處理系統]
+        S1[ ]
+        S2[ ]
+        A[內網應用服務器] <--> B[內網資料庫]
+        A <--> C[內網處理系統]
     end
-    
+        
     subgraph 外網環境
         D[外網API服務器] --> E[外網資料庫]
-        F[iPad App] --> D
-        D --> F
     end
     
-    A -- 取得raw data和審查結果 --> D
+    F[iPad App]
+    D <--> F
+    
+    D -- 取得raw data和審查結果 --> A
     A -- 回傳處理狀態 --> D
     A -- 發送基礎設置資料 --> D
+
+    style S1 fill:none,stroke:none
+    style S2 fill:none,stroke:none
 ```
 
 本系統採用內外網分離架構：
-- iPad App運行於外網環境，僅與外網API服務器通訊
+- iPad App運行於外網環境之外，僅與外網API服務器通訊
 - 外網環境負責數據中轉，儲存raw data和審查結果
 - 內網環境負責數據處理和應用，定期從外網獲取數據
 - 內網可向外網發送基礎設置資料，供iPad自動更新
@@ -44,19 +50,21 @@ graph TD
 - 手寫筆支援佳
 - 本地 Word 報告生成
 
-### 後端選擇：Python FastAPI + .NET Core 8 (雙方案)
+### 後端選擇：.NET Core 8 + Python FastAPI (雙方案)
 
-#### Python FastAPI 方案
-- 開發速度快
-- API 文檔自動生成
-- 非同步性能好
-- 輕量級數據同步
-
-#### .NET Core 8 備選方案
+#### .NET Core 8 主要方案
 - 企業級穩定性
 - 完整開發生態
 - 強大的 ORM 支援
 - 優秀的安全特性
+- 高效能非同步處理
+- 跨平台支援
+
+#### Python FastAPI 備選方案
+- 開發速度快
+- API 文檔自動生成
+- 非同步性能好
+- 輕量級數據同步
 
 ### 雲端服務：Azure Cloud
 - 純數據中轉

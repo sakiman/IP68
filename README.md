@@ -48,7 +48,7 @@ graph RL
     A -- 發送基礎設置資料 --> D
 ```
 
-### 外網反向代理 Reverse Proxy  (需 IT 開放並建置)
+### 反向代理 Reverse Proxy  (需 IT 開放並建置)
 - 設備不允許直接存取內網，但能存取外網時的方案
 ```mermaid
 graph RL
@@ -57,7 +57,7 @@ graph RL
         A <--> C[內網 FTP Server]
     end
     
-    subgraph 外網環境
+    subgraph 外網環境-外部 Server或 IT 設置的對外 API Server
         E[反向代理 Server]
     end
     
@@ -73,6 +73,7 @@ graph RL
     - OpenVPN
   - NAT 穿透
   - Zero Trus (Cloudflare)
+  - 其它依 IT 設置
 
 **外網反向代理架構：**
 1. 反向代理外網 Server

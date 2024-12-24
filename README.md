@@ -62,7 +62,7 @@ graph RL
     A -- 發送基礎設置資料 --> E
 ```
 
-外網反向代理架構：
+**外網反向代理架構：**
 1. 反向代理外網 Server
    - 放置在 DMZ 區域 (公共網路與內網之間的安全區域)
    - 外網環境只提供轉送服務，避免將內網服務直接暴露到外網
@@ -172,7 +172,7 @@ graph RL
     style S2 fill:none,stroke:none
 ```
 
-內外網分離架構：
+**外網池 (API + Database + FTP Server)架構：**
 1. 架構 (Azure Cloud)
    - iPad App運行於外網環境之外，僅與外網API服務器通訊
    - 外網環境負責數據中轉，儲存raw data和審查結果

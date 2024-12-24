@@ -51,6 +51,9 @@ graph RL
     A -- 發送基礎設置資料 --> D
 ```
 
+### 手持設備 VPN (需 IT 開放)
+- 同筆電 VPN，可於任何地點作業
+
 ### 反向代理 Reverse Proxy  (需 IT 開放並建置)
 - 設備不允許直接存取內網，但能存取外網時的方案
 - 外部 Server或 IT 設置的對外 API Server 皆可

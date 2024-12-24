@@ -36,6 +36,9 @@
 - 不適用，因該模式傳送數據封包大小受限，僅適用於如健康設備心率監測或按鍵通知
 
 ### 內網 Wi-Fi Channel (需 IT 開放)
+- 成本最低
+- 開發較單純
+
 ```mermaid
 graph RL
     subgraph 內網環境
@@ -50,6 +53,10 @@ graph RL
 
 ### 反向代理 Reverse Proxy  (需 IT 開放並建置)
 - 設備不允許直接存取內網，但能存取外網時的方案
+- 外部 Server或 IT 設置的對外 API Server 皆可
+- 基本不進行 Business Logic 運算於此伺服
+- 此伺服只處理轉發要求
+
 ```mermaid
 graph RL
     subgraph 內網環境
@@ -160,6 +167,9 @@ graph RL
 
 ### 中轉池 (API + Database + FTP Server) (需 IT 協助，但成本較高因需租用三台服務器)
 - 設備無法存取內網，但能存取外網時的方案
+- 成本最高
+- 份運算可能會於中轉上執行
+
 ```mermaid
 graph RL
     subgraph 內網環境

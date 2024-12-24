@@ -75,7 +75,7 @@ graph RL
   - Zero Trus (Cloudflare)
   - 其它依 IT 設置
 
-**外網反向代理架構：**
+**反向代理架構：**
 1. 反向代理外網 Server
    - 放置在 DMZ 區域 (公共網路與內網之間的安全區域)
    - 外網環境只提供轉送服務，避免將內網服務直接暴露到外網
@@ -158,7 +158,7 @@ graph RL
    **防火牆設置**
      - 設置允許反向代理訪問
 
-### 外網池 (API + Database + FTP Server) (需 IT 協助，但成本較高因需租用三台服務器)
+### 中轉池 (API + Database + FTP Server) (需 IT 協助，但成本較高因需租用三台服務器)
 - 設備無法存取內網，但能存取外網時的方案
 ```mermaid
 graph RL
@@ -169,9 +169,9 @@ graph RL
         A <--> C[內網 FTP Server]
     end
         
-    subgraph 外網環境
-        D[外網 API Server] <--> E[外網 Database]
-        D <--> G[外網 FTP Server]
+    subgraph 中轉池環境
+        D[中轉 API Server] <--> E[中轉 Database]
+        D <--> G[中轉 FTP Server]
     end
     
     F[iPad App]
@@ -185,12 +185,12 @@ graph RL
     style S2 fill:none,stroke:none
 ```
 
-**外網池 (API + Database + FTP Server)架構：**
+**中轉池 (API + Database + FTP Server)架構：**
 1. 架構 (Azure Cloud)
-   - iPad App運行於外網環境之外，僅與外網API服務器通訊
-   - 外網環境負責數據中轉，儲存raw data和審查結果
-   - 內網環境負責數據處理和應用，定期從外網獲取數據
-   - 內網可向外網發送基礎設置資料，供iPad自動更新
+   - iPad App運行於外網環境之外，僅與中轉 API 服務器通訊
+   - 中轉環境負責數據中轉，儲存 raw data 和審查結果
+   - 內網環境負責數據處理和應用，定期從中轉池獲取數據
+   - 內網可向中轉池發送基礎設置資料，供 iPad 自動更新
 2. 資料庫：PostgreSQL + Redis
    - PostgreSQL：可靠的資料存儲
    - Redis：高速緩存和會話管理

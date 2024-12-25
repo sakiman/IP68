@@ -40,7 +40,7 @@
   - 目前 Python 套件 Pybluez 僅支援傳統藍牙（BR/EDR），且 2019 後即不在更新支援
   - 目前 Python 套件 Pybluez2 僅支援傳統藍牙（BR/EDR），第三方維護，或可完成傳輸但無法分享網絡
     部份功能可能受限
-  - SFCOMM 是 Serial Port Profile (SPP) 中的一部分，這是用於模擬藍牙上的串行通信的協議。在藍牙通信中，SFCOMM 提供了一種基於 RS-232 標準的仿真機制，允許設備通過藍牙模擬串口傳輸數據。
+  - RFCOMM 是 Serial Port Profile (SPP) 中的一部分，這是用於模擬藍牙上的串行通信的協議。在藍牙通信中，SFCOMM 提供了一種基於 RS-232 標準的仿真機制，允許設備通過藍牙模擬串口傳輸數據。
     但目前 iPad 不支持此方式
 
 ### 藍牙 BLE 藍牙低功耗模式 (試驗後不可行 ❌ - Python)

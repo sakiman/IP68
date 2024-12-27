@@ -15,7 +15,7 @@ public partial class MainWindow : Window
     private PluginBleScanner? _pluginBleScanner;
     private InTheHandScanner? _inTheHandScanner;
     private readonly List<CancellationTokenSource> _cancellationTokens = new();
-    private const string TARGET_DEVICE_ADDRESS = "18:7E:B9:6A:B8:5D";
+    private const string TARGET_DEVICE_ADDRESS = "18:7E:B9:6A:B8:5D"; // 目標設備，用來示範取得 iPad 服務和特徵值 UUID
     private bool _scannersInitialized = false;
 
     public MainWindow()

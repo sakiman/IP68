@@ -344,8 +344,14 @@ graph TD
      <UseWPF>true</UseWPF>
    </PropertyGroup>
    ```
+6. **修改目標設備**
+   - 範例刻意設置一台目標設備用來作為取得 iPad 服務和特徵值 UUID：
+   - MainWindow.xaml.cs
+   ```cs
+   private const string TARGET_DEVICE_ADDRESS = "18:7E:B9:6A:B8:5D";
+   ```
 
-6. **編譯和運行**
+7. **編譯和運行**
    ```powershell
    # 清理專案：刪除所有之前的編譯輸出，包括 bin 和 obj 目錄
    # 這可以解決一些由於快取或過時檔案導致的問題

@@ -4,7 +4,7 @@
 
 1. [藍牙庫功能比較](#藍牙庫功能比較)
 2. [藍牙庫介紹](#藍牙庫介紹)
-3. [OBEX 和 iPad 支持說明](#obex-和-ipad-支持說明)
+3. [OBEX 和 iPad 支援說明](#obex-和-ipad-支援說明)
 4. [BLE Flags 說明](#ble-flags-說明)
 5. [本應用程序系統架構](#本應用程序系統架構)
 6. [開發環境需求](#開發環境需求)
@@ -16,22 +16,22 @@
 
 | 功能特性 | InTheHand Bluetooth | Plugin.BLE | Windows.Devices.Bluetooth | 備註 |
 |:---------|:-------------------|:-----------|:------------------------|:-----|
-| 支持傳統藍牙 (BR/EDR) | ✅ 支持 | ❌ 不支持 | ✅ 支持 | - |
-| 支持低功耗藍牙 (BLE) | ❌ 不支持 | ✅ 支持 | ✅ 支持 | - |
-| 支持 OBEX 文件傳輸 | ✅ 支持 (非 Apple 系設備) | ❌ 不支持 | ❌ 不支持 | - |
+| 支援傳統藍牙 (BR/EDR) | ✅ 支援 | ❌ 不支援 | ✅ 支援 | - |
+| 支援低功耗藍牙 (BLE) | ❌ 不支援 | ✅ 支援 | ✅ 支援 | - |
+| 支援 OBEX 文件傳輸 | ✅ 支援 (非 Apple 系設備) | ❌ 不支援 | ❌ 不支援 | - |
 | 識別 iPad | ✅ 可識別 | ✅ 可識別 | ✅ 可識別 | - |
 | 服務發現 | 僅已安裝服務 | ✅ 完整 | ✅ 完整 | - |
-| 特徵值發現 | 有限 | ✅ 支持 | ✅ 支持 | - |
-| 即時通知 | 有限 | ✅ 支持 | ✅ 支持 | - |
-| 傳輸文件 | ❌ 不支持 (iPad 不支持 OBEX) | ❌ 不支持 | ❌ 不支持 | 需使用 AirDrop 或 Wi-Fi |
-| 跨平台能力 | 部分支持 | ✅ 完整支持 | ❌ 僅支持 Windows | - |
+| 特徵值發現 | 有限 | ✅ 支援 | ✅ 支援 | - |
+| 即時通知 | 有限 | ✅ 支援 | ✅ 支援 | - |
+| 傳輸文件 | ❌ 不支援 (iPad 不支援 OBEX) | ❌ 不支援 | ❌ 不支援 | 需使用 AirDrop 或 Wi-Fi |
+| 跨平台能力 | 部分支援 | ✅ 完整支援 | ❌ 僅支援 Windows | - |
 | 適用場景 | 模擬串口通信、傳統藍牙設備 | BLE 設備 (如傳感器、心率帶) | Windows 平台通用藍牙應用 | - |
 | 其它 | - | - | Windows 原生 API | - |
  
 ```java
 **注意事項**:
   - 文件傳輸功能需要使用 AirDrop 或其他 Wi-Fi 相關 API
-  - iPad 的藍牙功能支持有限，需要針對具體場景選擇合適的方案
+  - iPad 的藍牙功能支援有限，需要針對具體場景選擇合適的方案
   - iPad 的文件傳輸更傾向於使用 AirDrop
     - AirDrop 以 BLE + 點對點無線 Wi-Fi 區域網技術來完成文件收送
     - 或可通過 Wi-Fi（如 HTTP Server）來實現文件收送
@@ -42,28 +42,28 @@
 ### 1. InTheHand Bluetooth (BR/EDR)
 
 #### 特點
-**支持傳統藍牙 (BR/EDR)**
-- InTheHand Bluetooth 支持 Serial Port Profile (SPP) 和 RFCOMM，主要針對傳統藍牙設備（BR/EDR）
+**支援傳統藍牙 (BR/EDR)**
+- InTheHand Bluetooth 支援 Serial Port Profile (SPP) 和 RFCOMM，主要針對傳統藍牙設備（BR/EDR）
 - 適合模擬串口通信的設備，例如藍牙打印機、條碼掃描器等
 - 服務發現受系統權限限制
 - 某些服務可能需要配對或連接後才能發現
 - 只能獲取 `InstalledServices`（已安裝的主要服務）
-**功能支持**
+**功能支援**
 - 掃描藍牙設備
 - 配對設備
 - 通過 RFCOMM 建立連接，進行傳輸數據
-**操作系統支持**
-- 支持 Windows（10+）和部分 UWP（通用 Windows 平台）應用
+**操作系統支援**
+- 支援 Windows（10+）和部分 UWP（通用 Windows 平台）應用
 **主要優勢**
-- 對傳統藍牙功能有更好的支持
+- 對傳統藍牙功能有更好的支援
 - 可用於模擬串口數據傳輸，實現與傳統模式的藍牙通信
 
 #### 是否能找到 iPad 7th？
-- 可以找到 iPad 7th，因為 iPad 有支持 BR/EDR
+- 可以找到 iPad 7th，因為 iPad 有支援 BR/EDR
 
 #### 是否能傳輸文件？
-- 不適合傳輸文件。InTheHand Bluetooth 更適合模擬串口通信，而 iPad 不支持這種模式
-- iPad 不支持 Serial Port Profile (SPP) 和 RFCOMM，因此無法使用 InTheHand 通過傳統模式進行傳輸文件
+- 不適合傳輸文件。InTheHand Bluetooth 更適合模擬串口通信，而 iPad 不支援這種模式
+- iPad 不支援 Serial Port Profile (SPP) 和 RFCOMM，因此無法使用 InTheHand 通過傳統模式進行傳輸文件
 - iPad 的文件傳輸更傾向於使用 AirDrop
   - AirDrop 以 BLE + 點對點無線 Wi-Fi 區域網技術來完成文件收送
 
@@ -72,12 +72,12 @@
 #### 特點
 **專注於 BLE (Bluetooth Low Energy) 低功耗藍牙**
 - Plugin.BLE 是一個跨平台的 .NET 庫，專門用於藍牙低功耗（BLE）通信。
-- 它支持掃描 BLE 設備、連接 GATT 服務，並讀取/寫入特徵值。
-**功能支持**
+- 它支援掃描 BLE 設備、連接 GATT 服務，並讀取/寫入特徵值。
+**功能支援**
 - 掃描周圍的 BLE 設備。
 - 連接到 BLE 設備上的 GATT 服務和特徵。
-**操作系統支持**
-- 支持 iOS、Android 和部分 Windows 平台。
+**操作系統支援**
+- 支援 iOS、Android 和部分 Windows 平台。
 **主要優勢**
 - 專門用於 BLE 設備的通信，適用於需要與 iOS 或 Android 設備上的應用程序通信的場景。
 - 可以獲取更詳細的服務廣播數據：
@@ -85,10 +85,10 @@
   - 次要服務（Secondary Services）
   - 特徵值（Characteristics）
   - 描述符（Descriptors）
-- 支持即時服務發現
+- 支援即時服務發現
 
 #### 是否能找到 iPad 7th？
-- 可以找到 iPad 7th，因為 iPad 有支持 BLE
+- 可以找到 iPad 7th，因為 iPad 有支援 BLE
 - Plugin.BLE 適合用於連接 BLE 設備（例如藍牙心率帶、溫度傳感器等）。
 
 #### 是否能傳輸文件？
@@ -100,21 +100,21 @@
 ### 3. Windows.Devices.Bluetooth
 
 #### 特點
-**Windows 原生 API - 支持傳統藍牙 (BR/EDR) 和低功耗藍牙 (BLE)**
-- Windows.Devices.Bluetooth 是 Windows 平台的原生 API，提供了對於藍牙設備的全面支持。
-**功能支持**
+**Windows 原生 API - 支援傳統藍牙 (BR/EDR) 和低功耗藍牙 (BLE)**
+- Windows.Devices.Bluetooth 是 Windows 平台的原生 API，提供了對於藍牙設備的全面支援。
+**功能支援**
 - 掃描藍牙設備。
 - 配對設備。
 - 通過 RFCOMM 或 GATT 建立連接，進行傳輸數據。
-**操作系統支持**
-- 僅支持 Windows 平台。
+**操作系統支援**
+- 僅支援 Windows 平台。
 **主要優勢**
-- 提供了對於 Windows 平台的全面支持，包括傳統藍牙和低功耗藍牙。
+- 提供了對於 Windows 平台的全面支援，包括傳統藍牙和低功耗藍牙。
 - 可用於開發 Windows 平台通用的藍牙應用。
 
 #### 是否能找到 iPad 7th？
-- 可以找到 iPad 7th，因為 iPad 支持 BR/EDR 和 BLE。
-- 但 iPad 不支持 Serial Port Profile (SPP) 和 RFCOMM，因此無法使用 Windows.Devices.Bluetooth 通過傳統模式進行數據傳輸。
+- 可以找到 iPad 7th，因為 iPad 支援 BR/EDR 和 BLE。
+- 但 iPad 不支援 Serial Port Profile (SPP) 和 RFCOMM，因此無法使用 Windows.Devices.Bluetooth 通過傳統模式進行數據傳輸。
 
 #### 是否能傳輸文件？
 - 不適合傳輸文件。Windows.Devices.Bluetooth 更適合模擬串口通信或 BLE 通信。
@@ -122,15 +122,15 @@
   - AirDrop 以 BLE + 點對點無線 Wi-Fi 區域網技術來完成文件收送
 
 ##
-## OBEX 和 iPad 支持說明
+## OBEX 和 iPad 支援說明
 
 ### 1. OBEX（Object Exchange Protocol）協議
 - OBEX 是一個通用的對象交換協議，用於通過藍牙或紅外線進行文件傳輸，常用於傳輸文件、名片（vCard）、圖片等數據。
 
-### 2. iPad 的 OBEX 支持
-- iPad 不原生支持 OBEX 協議用於文件傳輸。Apple 的生態系統主要依賴 AirDrop（基於 Wi-Fi Direct 和 Bluetooth-BLE）來進行文件共享，而不是使用標準的藍牙 OBEX 協議。
+### 2. iPad 的 OBEX 支援
+- iPad 不原生支援 OBEX 協議用於文件傳輸。Apple 的生態系統主要依賴 AirDrop（基於 Wi-Fi Direct 和 Bluetooth-BLE）來進行文件共享，而不是使用標準的藍牙 OBEX 協議。
 
-### 3. iPad 7th 的支持情況
+### 3. iPad 7th 的支援情況
 
 #### 識別 iPad 7th
 - **InTheHand Bluetooth**：可以識別 iPad 作為 BR/EDR 設備，但受限於 Apple 對藍牙的限制，iPad 不會廣播 OBEX 或相關服務。
@@ -138,7 +138,7 @@
 - **Windows.Devices.Bluetooth**：可以識別 iPad 作為 BR/EDR 或 BLE 設備。
 
 #### 文件傳輸
-- **OBEX 文件傳輸**：不可行，iPad 不支持使用 OBEX 協議進行文件傳輸，無論使用 InTheHand Bluetooth、Plugin.BLE 還是 Windows.Devices.Bluetooth。
+- **OBEX 文件傳輸**：不可行，iPad 不支援使用 OBEX 協議進行文件傳輸，無論使用 InTheHand Bluetooth、Plugin.BLE 還是 Windows.Devices.Bluetooth。
 - **替代方案**：如果需要文件傳輸，應使用 Apple 原生的 AirDrop 或通過 Wi-Fi（如 HTTP Server）來實現。
 
 ##
@@ -177,11 +177,11 @@
   - BLE 智能燈泡一直廣播其存在，以便用戶隨時能通過手機應用程序找到並連接。
 
 #### Bit 4：BR/EDR Not Supported
-- **值為 1**：表示該設備「不支持傳統藍牙（BR/EDR）」模式，僅支持 BLE。
+- **值為 1**：表示該設備「不支援傳統藍牙（BR/EDR）」模式，僅支援 BLE。
 - **用途**：
-  - 確保該設備不會被誤認為支持 BR/EDR 的設備。
+  - 確保該設備不會被誤認為支援 BR/EDR 的設備。
 - **範例**：
-  - BLE 心率監測器（如 Polar H10）僅支持低功耗藍牙，廣播時會將此位設為 1。
+  - BLE 心率監測器（如 Polar H10）僅支援低功耗藍牙，廣播時會將此位設為 1。
 
 ### 4. 完整示例：Flags 值 = 1A（十六進制）
 
@@ -272,9 +272,9 @@ gitGraph
    - 並行初始化三種不同的藍牙掃描器
 
 4. **掃描器類型**
-   - WindowsBluetoothScanner：Windows 原生藍牙 API，支持 BR/EDR 及 BLE
+   - WindowsBluetoothScanner：Windows 原生藍牙 API，支援 BR/EDR 及 BLE
    - PluginBleScanner：專注於 BLE 設備
-   - InTheHandScanner：支持傳統藍牙 BR/EDR 設備
+   - InTheHandScanner：支援傳統藍牙 BR/EDR 設備
 
 ```mermaid
 graph TD
@@ -368,13 +368,13 @@ graph TD
 
 1. 如果需要與傳統藍牙設備通信：
    - 在 Windows 平台上優先使用 Windows.Devices.Bluetooth
-   - 需要跨平台支持時使用 InTheHand
+   - 需要跨平台支援時使用 InTheHand
 
 2. 如果需要與現代 BLE 設備通信：
    - 優先使用 Plugin.BLE
    - Windows 平台也可以考慮 Windows.Devices.Bluetooth
 
-3. 如果需要同時支持兩種藍牙類型：
+3. 如果需要同時支援兩種藍牙類型：
    - Windows 平台：使用 Windows.Devices.Bluetooth
    - 跨平台：組合使用 InTheHand 和 Plugin.BLE
 
@@ -387,6 +387,6 @@ graph TD
 
 ### 注意事項
 - 需要啟用系統的藍牙功能
-- 需要適當的藍牙硬體支持（建議支持 BLE 和傳統藍牙）
+- 需要適當的藍牙硬體支援（建議支援 BLE 和傳統藍牙）
 - 某些藍牙操作可能需要管理員權限
 - 在 Windows 設置中確保已授予應用程序藍牙權限 

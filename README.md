@@ -1,7 +1,7 @@
 # REL 軍規及IP防水、防塵測試作業平板系統 2.0 APP - iPad
 
 ## 專案進度記錄
-- [2024/12/24](./docs/PM/meeting_notes/20241224.md)
+- [2024/12/24](./docs/PM/meeting_notes/20241224.md) - 首次會議後紀錄，包含可能的網絡架構和 app 注意事項
 
 ## 專案簡介
 這是一個用於進行 IP 防塵防水及軍規測試的 iPad 應用程式。讓檢測人員可以方便地填寫檢核項目、拍照記錄，並即時同步數據。
@@ -17,9 +17,21 @@
 - Summaries View (設備) — 非預覽報告，以一頁式顯示檢測紀錄信息，非必需
 
 ## 目錄
+- [專案技術測試](#專案技術測試)
 - [網絡架構](#網絡架構)
 - [系統架構](#系統架構)
 - [Resource](#resource)
+
+## 專案技術測試
+- 分別以 CSharp 和 Python 試驗藍牙連結**
+  - CSharp
+    - [app](./docs/App/windows/BluetoothServices/CSharp/) - 含使用的套件詳細說明與比較表
+      - InTheHand 套件
+      - Plugin.BLE 套件
+      - Windows.Device.Bluetooth 套件
+  - Python
+    - [app](./docs/App/windows/BluetoothServices/Python/)
+      - Blead 套件
 
 ## 網絡架構
 
@@ -31,17 +43,28 @@
 - 目前無法透過此方式，因電腦已禁用共用網路，無法共用網路藍牙
 - 目前無法透過 vEthernet 建立空虛擬網路轉送，已設置後，仍需開啟共用
 
-### 藍牙 BR/EDR 傳統模式 (試驗或能傳輸檔案，但無法共享電腦網路 💡 - Python)
+### 藍牙 BR/EDR 傳統模式 (不適用 ❌ - C# & Python)
 - 受限 IT Policy
-- 支持高寬帶如音頻、文件傳輸
-- iPad 對系統層級藍牙模組的訪問受限，目前不支持直接使用此方式
+- iPad 7th 支援藍牙 4.2
+  - 寬帶僅約 8 Mbps ~ 24 Mbps/s，傳送如音頻串流和小型文件
+- iPad 7th 對系統層級藍牙模組的訪問受限
 - Air Drop 是專利技術，未開放，僅能透過模擬的方式，但前提是和電腦要在同個 Wi-Fi 網域下，所以此法也行不通
 - `Python`
+  - [Python app](./docs/App/windows/BluetoothServices/Python/) - Bluetooth Service Tester Application
   - 目前 Python 套件 Pybluez 僅支援傳統藍牙（BR/EDR），且 2019 後即不在更新支援
   - 目前 Python 套件 Pybluez2 僅支援傳統藍牙（BR/EDR），第三方維護，或可完成傳輸但無法分享網絡
     部份功能可能受限
-  - RFCOMM 是 Serial Port Profile (SPP) 中的一部分，這是用於模擬藍牙上的串行通信的協議。在藍牙通信中，SFCOMM 提供了一種基於 RS-232 標準的仿真機制，允許設備通過藍牙模擬串口傳輸數據。
-    但目前 iPad 不支持此方式
+  - RFCOMM 是 Serial Port Profile (SPP) 中的一部分，這是用於模擬藍牙上的串行通信的協議。
+    在藍牙通信中，RFCOMM 提供了一種基於 RS-232 標準的仿真機制，允許設備通過藍牙模擬串口傳輸數據。
+    但目前 iPad 不支援此方式。
+- `C#`
+  - [C# app](./docs/App/windows/BluetoothServices/CSharp/) - Bluetooth Service Tester Application
+  - InTheHand 套件 - 支援傳統藍牙（BR/EDR）
+    - 不支援傳輸文件
+  - Plugin.BLE 套件 - 支援低功耗藍牙（BLE）
+    - 不支援傳輸文件
+  - Windows.Device.Bluetooth 套件 - 支援（BR/EDR）和（BLE）
+    - 不支援傳輸文件
 
 ### 藍牙 BLE 藍牙低功耗模式 (試驗後不可行 ❌ - Python)
 - 不適用，因該模式傳送數據封包大小受限，僅適用於如健康設備心率監測或按鍵通知

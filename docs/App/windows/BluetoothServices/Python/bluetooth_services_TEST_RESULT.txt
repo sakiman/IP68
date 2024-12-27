@@ -1,0 +1,143 @@
+開始執行藍牙服務測試...
+正在連接到設備 (18:7E:B9:6A:B8:5D)...
+連接成功！
+Service Changed 特徵值不可用，繼續執行
+
+發現的服務和特徵值:
+
+服務: 00001800-0000-1000-8000-00805f9b34fb
+  描述: Generic Access Profile
+  特徵值:
+    - UUID: 00002a00-0000-1000-8000-00805f9b34fb
+      描述: Device Name
+      屬性: 可讀
+    - UUID: 00002a01-0000-1000-8000-00805f9b34fb
+      描述: Appearance
+      屬性: 可讀
+
+服務: 00001801-0000-1000-8000-00805f9b34fb
+  描述: Generic Attribute Profile
+  特徵值:
+    - UUID: 00002a05-0000-1000-8000-00805f9b34fb
+      描述: Service Changed
+
+服務: 0000180a-0000-1000-8000-00805f9b34fb
+  描述: Device Information
+  特徵值:
+    - UUID: 00002a29-0000-1000-8000-00805f9b34fb
+      描述: Manufacturer Name String
+      屬性: 可讀
+    - UUID: 00002a24-0000-1000-8000-00805f9b34fb
+      描述: Model Number String
+      屬性: 可讀
+
+服務: d0611e78-bbb4-4591-a5f8-487910ae4366
+  描述: Apple Continuity Service
+  特徵值:
+    - UUID: 8667556c-9a37-4c91-84ed-54ee27d90049
+      描述: Apple Continuity Characteristic
+      屬性: 可寫, 可通知
+
+服務: 9fa480e0-4967-4542-9390-d343dc5d04ae
+  描述: Apple Nearby Service
+  特徵值:
+    - UUID: af0badb1-5b99-43cd-917a-a77bc549e3cc
+      描述: Nearby Characteristic
+      屬性: 可寫, 可通知
+
+服務: 0000180f-0000-1000-8000-00805f9b34fb
+  描述: Battery Service
+  特徵值:
+    - UUID: 00002a19-0000-1000-8000-00805f9b34fb
+      描述: Battery Level
+      屬性: 可讀, 可通知
+
+服務: 00001805-0000-1000-8000-00805f9b34fb
+  描述: Current Time Service
+  特徵值:
+    - UUID: 00002a2b-0000-1000-8000-00805f9b34fb
+      描述: Current Time
+      屬性: 可讀, 可通知
+    - UUID: 00002a0f-0000-1000-8000-00805f9b34fb
+      描述: Local Time Information
+      屬性: 可讀
+
+服務: 7905f431-b5ce-4e99-a40f-4b1e122d00d0
+  描述: Apple Notification Center Service
+  特徵值:
+    - UUID: 69d1d8f3-45e1-49a8-9821-9bbdfdaad9d9
+      描述: Control Point
+      屬性: 可寫
+    - UUID: 9fbf120d-6301-42d9-8c58-25e699a21dbd
+      描述: Notification Source
+      屬性: 可通知
+    - UUID: 22eac6e9-24d6-4bb5-be44-b36ace7c7bfb
+      描述: Data Source
+      屬性: 可通知
+
+服務: 89d3502b-0f36-433a-8ef4-c502ad55f8dc
+  描述: Apple Media Service
+  特徵值:
+    - UUID: 9b3c81d8-57b1-4a8a-b8df-0e56f7ca51c2
+      描述: Remote Command
+      屬性: 可寫, 可通知
+    - UUID: 2f7cabce-808d-411f-9a0c-bb92ba96c102
+      描述: Entity Update
+      屬性: 可寫, 可通知
+    - UUID: c6b2f38c-23ab-46d8-a6ab-a3a870bbd5d7
+      描述: Entity Attribute
+      屬性: 可讀, 可寫
+
+服務: 00001813-0000-1000-8000-00805f9b34fb
+  描述: Scan Parameters
+  特徵值:
+    - UUID: 00002a4f-0000-1000-8000-00805f9b34fb
+      描述: Sankalp
+      屬性: 可讀, 可寫, 可通知
+    - UUID: 00002a31-0000-1000-8000-00805f9b34fb
+      描述: Chuck
+      屬性: 可讀, 可寫, 可通知
+
+可用的服務:
+- 00001800-0000-1000-8000-00805f9b34fb: Generic Access Profile
+- 00001801-0000-1000-8000-00805f9b34fb: Generic Attribute Profile
+- 0000180a-0000-1000-8000-00805f9b34fb: Device Information
+- d0611e78-bbb4-4591-a5f8-487910ae4366: Apple Continuity Service
+- 9fa480e0-4967-4542-9390-d343dc5d04ae: Apple Nearby Service
+- 0000180f-0000-1000-8000-00805f9b34fb: Battery Service
+- 00001805-0000-1000-8000-00805f9b34fb: Current Time Service
+- 7905f431-b5ce-4e99-a40f-4b1e122d00d0: Apple Notification Center Service
+- 89d3502b-0f36-433a-8ef4-c502ad55f8dc: Apple Media Service
+- 00001813-0000-1000-8000-00805f9b34fb: Scan Parameters
+
+測試 Generic Access Profile:
+設備名稱: Rel的iPad (3)
+外觀特徵值: 640
+
+測試 Device Information Service:
+
+可用的設備信息特徵值:
+- 00002a29-0000-1000-8000-00805f9b34fb: Manufacturer Name String
+  屬性: 可讀
+- 00002a24-0000-1000-8000-00805f9b34fb: Model Number String
+  屬性: 可讀
+
+讀取設備信息:
+讀取製造商信息失敗，正在重試...
+無法讀取製造商信息: [WinError -2147483629] 該物件已關閉。
+讀取型號信息失敗，正在重試...
+無法讀取型號信息: [WinError -2147483629] 該物件已關閉。
+
+測試 Battery Service:
+讀取電池信息失敗，正在重試...
+無法讀取電池信息: [WinError -2147483629] 該物件已關閉。
+
+測試 Current Time Service:
+讀取當前時間失敗，正在重試...
+無法讀取當前時間: [WinError -2147483629] 該物件已關閉。
+
+ANCS 服務可用
+
+操作超時，強制結束程序...
+正在強制結束進程...
+程序已結束

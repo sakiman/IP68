@@ -345,7 +345,7 @@ graph TD
    </PropertyGroup>
    ```
 6. **修改目標設備**
-   - 範例刻意設置一台目標設備用來作為取得 iPad 服務和特徵值 UUID：
+   - 範例刻意設置一台 **`Rel 03B`** 目標設備用來作為取得 iPad 服務和特徵值 UUID：
    - MainWindow.xaml.cs
    ```cs
    private const string TARGET_DEVICE_ADDRESS = "18:7E:B9:6A:B8:5D";

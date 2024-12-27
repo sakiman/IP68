@@ -10,6 +10,8 @@
 6. [開發環境需求](#開發環境需求)
 7. [藍牙庫選擇建議](#藍牙庫選擇建議)
 
+![](./img/app_test_result_csharp.png)
+
 ## 藍牙庫功能比較
 
 | 功能特性 | InTheHand Bluetooth | Plugin.BLE | Windows.Devices.Bluetooth | 備註 |

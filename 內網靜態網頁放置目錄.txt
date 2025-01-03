@@ -1,0 +1,2 @@
+ALL: \\twtpeoad002\SGS_WEB\
+Sankalp: \\twtpeoad002\SGS_WEB\sankalp
